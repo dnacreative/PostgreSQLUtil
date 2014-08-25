@@ -32,7 +32,7 @@ public class Zip {
             zipFolder(srcFolder, destZipFile);
             result = true;
         } catch (Exception ex) {
-        	lgr.log(Level.SEVERE, "Some Errors happned during the zip process");
+        	lgr.log(Level.SEVERE, ex.getMessage(), "Some Errors happned during the zip process");
 	        lgr.log(Level.SEVERE, ex.getMessage(), ex);
         } finally {
             return result;
