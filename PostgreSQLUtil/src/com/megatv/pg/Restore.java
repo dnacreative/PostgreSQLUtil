@@ -17,6 +17,29 @@ public class Restore {
 	
 
 	
+	public boolean restore(){
+		
+		
+		Service service = new Service();
+		service.setProps(this.getProps());
+		
+		//Check if service is running adn stop it....
+		if(service.isServiceRunning()){
+			service.stopService();
+		}
+		
+		//Keep a backup of the existing data folder
+		archiveDataFolder();
+		
+		//Clear the data folder;
+		clearDataFolder(null);
+		
+		
+		return true;
+	}
+	
+	
+	
 	public void archiveDataFolder(){
 		String src = props.getProperty("datafolder");
 		String dest = props.getProperty("backupfolder") +"\\"+"before_restore_data.zip";
