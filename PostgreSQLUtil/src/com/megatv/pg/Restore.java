@@ -18,12 +18,12 @@ public class Restore {
 	
 
 	
-	public boolean restore(){
+	public void restore(){
 
 		Service service = new Service();
 		service.setProps(this.getProps());
 		
-		Unzip unzip = new Unzip();
+
 		
 		//Check if service is running adn stop it....
 		if(service.isServiceRunning()){
@@ -36,13 +36,8 @@ public class Restore {
 		//Clear the data folder;
 		clearDataFolder(null);
 		
-		//Unzip the backup into data folder;
-		try {
-			unzip.unzip("", "");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//unzip backup file to data folder
+		unzipBackupToDataFolder();
 		
 		//Rename the recovery.done to recovery.conf
 		renameRecoveryFile();
@@ -51,8 +46,6 @@ public class Restore {
 		service.startService();
 		
 		
-		//return true if ok
-		return true;
 	}
 	
 	
@@ -68,7 +61,7 @@ public class Restore {
 	
 	public void clearDataFolder(File folder){
 		if (folder == null){
-			String dataFolder = props.getProperty("testdatafolder");
+			String dataFolder = props.getProperty("datafolder");
 			folder = new File(dataFolder);
 		}
 		File[] files = folder.listFiles();
@@ -90,11 +83,35 @@ public class Restore {
 	}
 	
 	public void unzipBackupToDataFolder(){
+		Unzip unzip = new Unzip();
+		String datafolder = props.getProperty("datafolder");
+		String backupfolder = props.getProperty("backupfolder");
 		
+		String destinationFolder = new File(datafolder).getParent().toString();
+		
+		//Unzip the backup into data folder;
+		try {
+			
+			String zipFile = backupfolder + "backup_base_f54c2f6c-93ed-4e2c-a032-f7dc5fc49211.zip";
+			unzip.unzip(zipFile, destinationFolder);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
 	}
 	
 	
 	public void renameRecoveryFile(){
+		String datafolder = props.getProperty("datafolder");
+		String recoverydone = datafolder + "recovery.done";
+		String recoveryconf = datafolder + "recovery.conf";
+		
+		File recoveryDoneFile  = new File(recoverydone);
+		File recoveryConfFile  = new File(recoveryconf);
+		
+		recoveryDoneFile.renameTo(recoveryConfFile);
 		
 	}
 	
