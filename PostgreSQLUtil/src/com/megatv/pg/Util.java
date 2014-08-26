@@ -70,6 +70,7 @@ public class Util {
 				backup.createBackup();
 				break;
 			case RESTORE:
+				restore.restore();
 				break;
 			default:
 				showHelp();

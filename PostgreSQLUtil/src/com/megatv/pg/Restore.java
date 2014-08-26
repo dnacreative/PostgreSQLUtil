@@ -1,6 +1,7 @@
 package com.megatv.pg;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Properties;
 
 public class Restore {
@@ -18,10 +19,11 @@ public class Restore {
 
 	
 	public boolean restore(){
-		
-		
+
 		Service service = new Service();
 		service.setProps(this.getProps());
+		
+		Unzip unzip = new Unzip();
 		
 		//Check if service is running adn stop it....
 		if(service.isServiceRunning()){
@@ -34,7 +36,20 @@ public class Restore {
 		//Clear the data folder;
 		clearDataFolder(null);
 		
+		//Unzip the backup into data folder;
+		try {
+			unzip.unzip("", "");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		//Rename the recovery.done to recovery.conf
+		renameRecoveryFile();
+
+		//Start the PG service
+		service.startService();
+
 		return true;
 	}
 	
