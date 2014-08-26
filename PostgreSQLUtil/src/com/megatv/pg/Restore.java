@@ -49,7 +49,9 @@ public class Restore {
 
 		//Start the PG service
 		service.startService();
-
+		
+		
+		//return true if ok
 		return true;
 	}
 	
