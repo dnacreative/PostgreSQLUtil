@@ -21,7 +21,7 @@ public class Backup {
 		this.props = props;
 	}
 
-	public boolean createBackup(){
+	public boolean createBackup(boolean fullbackup){
 	
 		boolean completed = true;
 	 	Connection con = null;
@@ -60,28 +60,32 @@ public class Backup {
                 lgr.log(Level.INFO, "Backup with label " + backupLabel + " started " );
             }
             
-            //Create the base backup for data folder
-            lgr.log(Level.INFO, "Starting base backup (" + backupFile + ")");
             
-            /* Does not include empty directories	            
-			ZipUtils appZip = new ZipUtils();
-            appZip.generateFileList(new File(ZipUtils.SOURCE_FOLDER));
-            appZip.zipIt(ZipUtils.OUTPUT_ZIP_FILE);
-            */
-            
-            /* Includes empty directories*/
-            Zip zip = new Zip();
-            
-            String dataFolder = getProps().getProperty("datafolder");
-            String backupFolder = getProps().getProperty("backupfolder");
-            String excludeFolder = getProps().getProperty("excludefolder");
-            zip.setExcludeFolder(excludeFolder);
-            
-            
-            zip.zipFiles(dataFolder, backupFolder + backupFile);
-            zip = null;
-            
-            lgr.log(Level.INFO, "Base backup completed (" + backupFile + ")");
+            if(fullbackup){
+	            //Create the base backup for data folder
+	            lgr.log(Level.INFO, "Starting base backup (" + backupFile + ")");
+	            
+	            /* Does not include empty directories	            
+				ZipUtils appZip = new ZipUtils();
+	            appZip.generateFileList(new File(ZipUtils.SOURCE_FOLDER));
+	            appZip.zipIt(ZipUtils.OUTPUT_ZIP_FILE);
+	            */
+	            
+	            /* Includes empty directories*/
+	            Zip zip = new Zip();
+	            
+	            String dataFolder = getProps().getProperty("datafolder");
+	            String backupFolder = getProps().getProperty("backupfolder");
+	            String excludeFolder = getProps().getProperty("excludefolder");
+	            zip.setExcludeFolder(excludeFolder);
+	            
+	            
+	            zip.zipFiles(dataFolder, backupFolder + backupFile);
+	            zip = null;
+	            
+	            lgr.log(Level.INFO, "Base backup completed (" + backupFile + ")");
+            }
+
             
             //End of the backup
             lgr.log(Level.INFO, "Completing backup with label " + backupLabel );

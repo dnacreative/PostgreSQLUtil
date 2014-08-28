@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 public class Util {
 
 	private static enum Command {
-		HELP, BACKUP, RESTORE
+		HELP, BACKUP,FULL, RESTORE
 	}
 
 	public static void main1(String[] args) {
@@ -67,8 +67,13 @@ public class Util {
 				showHelp();
 				break;
 			case BACKUP:
-				backup.createBackup();
+				backup.createBackup(false);
 				break;
+
+			case FULL:
+				backup.createBackup(true);
+				break;
+
 			case RESTORE:
 				restore.restore();
 				break;
@@ -90,6 +95,8 @@ public class Util {
 				return Command.HELP;
 			case "-backup":
 				return Command.BACKUP;
+			case "-full":
+				return Command.FULL;
 			case "-restore":
 				return Command.RESTORE;
 			default:
