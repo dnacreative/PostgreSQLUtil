@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 public class Util {
 
 	private static enum Command {
-		HELP, BACKUP,FULL, RESTORE
+		HELP, BACKUP, FULL, RESTORE, FULL_RESTORE
 	}
 
 	public static void main1(String[] args) {
