@@ -3,10 +3,10 @@ package com.megatv.pg;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 public class Zip {
 
@@ -32,8 +32,8 @@ public class Zip {
             zipFolder(srcFolder, destZipFile);
             result = true;
         } catch (Exception ex) {
-        	lgr.log(Level.SEVERE, ex.getMessage(), "Some Errors happned during the zip process");
-	        lgr.log(Level.SEVERE, ex.getMessage(), ex);
+        	//lgr.log(Level.WARN, ex.getMessage(), "Some Errors happned during the zip process");
+	        lgr.log(Level.WARN, ex.getMessage(), ex);
         } finally {
             return result;
         }
@@ -48,8 +48,8 @@ public class Zip {
         /*
          * create the output stream to zip file result
          */
-        fileWriter = new FileOutputStream(destZipFile);
-        zip = new ZipOutputStream(fileWriter);
+        //fileWriter = new FileOutputStream(destZipFile);
+        zip = new ZipOutputStream(new FileOutputStream(destZipFile));
         /*
          * add the folder to the zip
          */

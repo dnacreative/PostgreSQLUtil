@@ -5,10 +5,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 public class Backup {
 	Properties props;
@@ -48,9 +50,21 @@ public class Backup {
 	        }
 	
 
-			String uuid = UUID.randomUUID().toString();
+	        /*
+	        String uuid = UUID.randomUUID().toString();
             String backupLabel = "backup_" + uuid;
             String backupFile = "backup_base_" + uuid +".zip";
+            */
+
+            
+            Date dNow = new Date();
+            SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd-hh-mm-ss");
+            
+			String datetime = ft.format(dNow); 
+            String backupLabel = "backup_" + datetime;
+            String backupFile = "backup_base_" + datetime +".zip";
+            
+                        
             
             //Start the backup
             lgr.log(Level.INFO, "Starting backup with label " + backupLabel );
@@ -99,7 +113,7 @@ public class Backup {
 	
 	    } catch (SQLException ex) {
 	        lgr = Logger.getLogger(Util.class.getName());
-	        lgr.log(Level.SEVERE, ex.getMessage(), ex);
+	        lgr.log(Level.FATAL, ex.getMessage(), ex);
 	        completed = false;
 	    } finally {
 	        try {
@@ -115,7 +129,7 @@ public class Backup {
 	
 	        } catch (SQLException ex) {
 	            lgr = Logger.getLogger(Util.class.getName());
-	            lgr.log(Level.WARNING, ex.getMessage(), ex);
+	            lgr.log(Level.WARN, ex.getMessage(), ex);
 	            completed = false;
 	        }
 	    }

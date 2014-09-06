@@ -4,8 +4,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 /*Main class for project*/
 public class Util {
 
@@ -67,7 +69,7 @@ public class Util {
 				showHelp();
 				break;
 			case BACKUP:
-				backup.createBackup(false);
+				//backup.createBackup(false);do nothing
 				break;
 
 			case FULL:
@@ -75,7 +77,7 @@ public class Util {
 				break;
 
 			case RESTORE:
-				restore.restore();
+				//restore.restore(); do nothing
 				break;
 			default:
 				showHelp();

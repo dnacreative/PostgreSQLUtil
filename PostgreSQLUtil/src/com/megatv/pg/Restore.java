@@ -3,6 +3,9 @@ package com.megatv.pg;
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 
 public class Restore {
 
