@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
-import java.util.UUID;
+
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
